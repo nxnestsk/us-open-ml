@@ -1,4 +1,6 @@
-# US Open ML — Plano e decisões
+> **Documento histórico.** Este é o plano do início do projeto. Algumas ideias não foram feitas (Glicko-2, SHAP, minutos jogados) ou deram resultados diferentes do esperado. O estado final e os resultados estão no [README](../README.md) e nos relatórios `01` a `05`.
+
+# US Open ML — Plano inicial
 
 ## Objetivo
 Estimar a probabilidade de cada jogador ganhar o US Open (quadro masculino e feminino), com um processo reprodutível e estudável passo a passo.
@@ -14,19 +16,15 @@ O vídeo usa features de Elo (geral, por superfície, por recinto), ranking/pont
 | Um modelo | Baseline Elo → logística → gradient boosting | Mostra o ganho de cada passo |
 | — | Comparação com odds de mercado (tennis-data.co.uk) | Benchmark difícil e honesto |
 
-## Melhorias adicionais (para além do vídeo)
-- **Ratings mais ricos:** Elo com K variável (mais volátil para novos jogadores), Glicko-2 (incerteza do rating) e Elo por superfície com mistura do Elo geral.
-- **Fadiga e calendário:** minutos jogados nos últimos 7/14 dias, dias de descanso, sets longos, viagem entre torneios.
-- **Matchups:** mão dominante, altura, estilo (serviço vs. devolução), head-to-head com suavização bayesiana.
-- **Features só com informação anterior ao jogo**, com testes automáticos que garantem que não há fuga de dados.
-- **Ensemble:** logística + LightGBM/XGBoost, com calibração (isotónica/Platt) e média das probabilidades.
-- **Incerteza no campeão:** intervalos de confiança na simulação e análise de sensibilidade (e se o jogador X estiver lesionado?).
-- **Interpretabilidade:** importância das features e SHAP para estudar o que o modelo aprendeu.
-- **Honestidade estatística:** o mercado de apostas é muito eficiente; o objetivo realista é igualar ou aproximar as odds, não "ganhar-lhes" de forma garantida.
+## Ideias planeadas (o que foi feito e o que não)
+- **Feito:** Elo com K variável e por superfície com mistura; features só com informação anterior ao jogo, com testes automáticos anti-fuga; ensemble de logística e LightGBM; intervalos de confiança por bootstrap; comparação com o mercado.
+- **Feito, com ganho pequeno ou não provado:** afinação do Elo, treino walk-forward com pesos temporais, indicadores aproximados de risco de lesão (desistências).
+- **Não feito:** Glicko-2, SHAP, minutos jogados e viagens, previsão com intervalos de credibilidade, sensibilidade a lesões.
+- **Honestidade estatística:** o mercado de apostas é muito eficiente; o objetivo realista é aproximar as odds, não "ganhar-lhes" de forma garantida.
 
 ## Fontes de dados
 - Jeff Sackmann `tennis_atp` e `tennis_wta` (GitHub, licença CC BY-NC-SA: uso não comercial, citar autor).
-- Odds históricas: tennis-data.co.uk (fase posterior).
+- Odds e resultados recentes: tennis-data.co.uk.
 
 ## Fases
 1. Estrutura e dados
@@ -38,4 +36,4 @@ O vídeo usa features de Elo (geral, por superfície, por recinto), ranking/pont
 7. Backtest em US Opens passados
 8. Dashboard
 
-Cada fase gera uma secção em `reports/`.
+Cada fase gera um relatório em `reports/`.

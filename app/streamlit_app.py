@@ -53,7 +53,7 @@ def group_label(g: str) -> str:
 st.sidebar.title("US Open ML")
 page = st.sidebar.radio("Página", ["Resumo", "Simulação", "Confronto direto", "Dados e Elo", "Modelos"])
 st.sidebar.caption("Probabilidades estimadas por um ensemble (regressão logística + LightGBM) "
-                   "treinado até 2020, com features sem fuga de dados.")
+                   "treinado ano a ano só com dados anteriores a cada torneio, com features sem fuga de dados.")
 
 # ============================================================== Resumo
 if page == "Resumo":
@@ -199,9 +199,12 @@ elif page == "Dados e Elo":
 # =============================================================== Modelos
 else:
     st.title("Modelos e avaliação")
-    st.write("Relatórios gerados pelos scripts do projeto. Divisão temporal: treino 1995–2020, validação "
-             "2021–2022, teste 2023+.")
-    t1, t2, t3 = st.tabs(["Features e modelos", "Baseline Elo", "Simulação e backtest"])
-    t1.markdown(read_report("02_modelos.md"))
+    st.write("Relatórios gerados pelos scripts do projeto. O modelo final é treinado ano a ano (walk-forward), "
+             "sempre só com o passado; o teste é 2023 em diante. A versão 1 (treino fixo até 2020) fica como comparação.")
+    t1, t2, t3, t4, t5 = st.tabs(["Modelo final", "Elo: baseline", "Elo: afinação", "Versão 1 (treino até 2020)",
+                                  "Simulação e backtest"])
+    t1.markdown(read_report("05_walkforward.md"))
     t2.markdown(read_report("01_eda_elo.md"))
-    t3.markdown(read_report("03_simulacao.md"))
+    t3.markdown(read_report("04_elo_tuning.md"))
+    t4.markdown(read_report("02_modelos.md"))
+    t5.markdown(read_report("03_simulacao.md"))
