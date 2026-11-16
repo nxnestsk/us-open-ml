@@ -1,0 +1,24 @@
+# ambiente e caches
+.venv/
+__pycache__/
+.pytest_cache/
+
+# configuração local da ferramenta (contém caminhos da máquina)
+.claude/
+
+# dados originais: obtêm-se com scripts/00_download_data.py (licença CC BY-NC-SA, não se redistribuem)
+data/raw/
+
+# ficheiros gerados e grandes: regeneram-se com os scripts
+data/processed/*
+!data/processed/backtest_summary.csv
+!data/processed/sim_atp.csv
+!data/processed/sim_wta.csv
+!data/processed/pairs_atp.csv
+!data/processed/pairs_wta.csv
+
+# modelos treinados (pickles): regeneram-se com scripts/02 e scripts/05
+models/*.joblib
+
+# notas pessoais (Obsidian): não fazem parte do repositório
+docs/
