@@ -7,6 +7,7 @@
 Depois: streamlit run app/streamlit_app.py
 """
 import argparse
+import os
 import subprocess
 import sys
 import time
@@ -20,7 +21,8 @@ STEPS = ["01_eda_elo.py", "02_models.py", "04_tune_elo.py", "05_walkforward.py",
 def run(args: list[str]) -> None:
     t0 = time.time()
     print(f"\n=== {' '.join(args)}", flush=True)
-    subprocess.run([sys.executable, *args], cwd=ROOT, check=True)
+    env = {**os.environ, "PYTHONUTF8": "1", "PYTHONIOENCODING": "utf-8"}  # saída em UTF-8 também no Windows
+    subprocess.run([sys.executable, *args], cwd=ROOT, check=True, env=env)
     print(f"    ok ({time.time() - t0:.0f} s)", flush=True)
 
 

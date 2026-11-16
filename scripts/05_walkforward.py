@@ -19,6 +19,7 @@ from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import StandardScaler
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.stdout.reconfigure(encoding="utf-8", errors="replace")  # consolas Windows (cp1252) não imprimem "−" nem "→"
 sys.path.insert(0, str(ROOT))
 from src.data import load_matches  # noqa: E402
 from src.elo import compute_elo  # noqa: E402
